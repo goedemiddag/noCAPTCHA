@@ -18,7 +18,7 @@ Add to composer:
 And then to the `require` section:
 
 ```json
-    "arcandev/no-captcha": "dev-master"
+    "arcandev/no-captcha": "dev-main"
 ```
 
 To finish the installation, run:
