@@ -1,6 +1,6 @@
 # noCAPTCHA (new reCAPTCHA) 
 
-Forked of [ARCANEDEV/noCAPTCHA](https://github.com/ARCANEDEV/noCAPTCHA) but made compatible by Laravel 10.
+Forked of [ARCANEDEV/noCAPTCHA](https://github.com/ARCANEDEV/noCAPTCHA) but made compatible with Laravel 10.
 
 ## Installation
 
