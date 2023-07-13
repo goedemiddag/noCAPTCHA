@@ -86,7 +86,7 @@ class NoCaptchaV3Test extends TestCase
 
         static::assertSame(
             '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">',
-            $noCaptcha->input()->toHtml()
+            $noCaptcha->input()
         );
     }
 
@@ -281,7 +281,7 @@ class NoCaptchaV3Test extends TestCase
 
         static::assertSame(
             '<input type="hidden" id="g-recaptcha" name="g-recaptcha">',
-            $noCaptcha->input('g-recaptcha')->toHtml()
+            $noCaptcha->input('g-recaptcha')
         );
     }
 

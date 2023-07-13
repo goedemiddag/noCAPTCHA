@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Arcanedev\NoCaptcha;
 
-use Arcanedev\Html\Elements\Input;
 use Arcanedev\NoCaptcha\Utilities\ResponseV3;
 
 /**
@@ -31,14 +30,9 @@ class NoCaptchaV3 extends AbstractNoCaptcha
      | -----------------------------------------------------------------
      */
 
-    /**
-     * @param  string  $name
-     *
-     * @return \Arcanedev\Html\Elements\Input
-     */
-    public function input($name = 'g-recaptcha-response')
+    public function input(string $name = 'g-recaptcha-response'): string
     {
-        return Input::make()->type('hidden')->id($name)->name($name);
+        return sprintf('<input type="hidden" id="%1$s" name="%1$s">', $name);
     }
 
     /**

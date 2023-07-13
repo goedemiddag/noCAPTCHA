@@ -188,10 +188,8 @@ abstract class AbstractNoCaptcha implements Contracts\NoCaptcha
 
     /**
      * Get the client url.
-     *
-     * @return string
      */
-    public static function getClientUrl()
+    public static function getClientUrl(): string
     {
         return static::$useGlobalDomain
             ? 'https://www.recaptcha.net/recaptcha/api.js'
@@ -200,10 +198,8 @@ abstract class AbstractNoCaptcha implements Contracts\NoCaptcha
 
     /**
      * Get the verification url.
-     *
-     * @return string
      */
-    public static function getVerificationUrl()
+    public static function getVerificationUrl(): string
     {
         return static::$useGlobalDomain
             ? 'https://www.recaptcha.net/recaptcha/api/siteverify'
@@ -262,7 +258,7 @@ abstract class AbstractNoCaptcha implements Contracts\NoCaptcha
     {
         $query = array_filter($query);
         $json  = $this->request->send(
-            $this->getVerificationUrl().'?'.http_build_query($query)
+            self::getVerificationUrl().'?'.http_build_query($query)
         );
 
         return $this->parseResponse($json);

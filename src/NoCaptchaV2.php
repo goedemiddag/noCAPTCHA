@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Arcanedev\NoCaptcha;
 
-use Arcanedev\Html\Elements\{Button, Div};
 use Arcanedev\NoCaptcha\Exceptions\InvalidArgumentException;
 use Arcanedev\NoCaptcha\Utilities\ResponseV2;
 use Illuminate\Support\Arr;
@@ -52,7 +51,7 @@ class NoCaptchaV2 extends AbstractNoCaptcha
             Arr::set($queries, 'render', 'explicit');
         }
 
-        return $this->getClientUrl() . (count($queries) ? '?' . http_build_query($queries) : '');
+        return self::getClientUrl() . (count($queries) ? '?' . http_build_query($queries) : '');
     }
 
     /* -----------------------------------------------------------------
@@ -62,29 +61,21 @@ class NoCaptchaV2 extends AbstractNoCaptcha
 
     /**
      * Display Captcha.
-     *
-     * @param  string|null  $name
-     * @param  array        $attributes
-     *
-     * @return \Arcanedev\Html\Elements\Div
      */
-    public function display($name = null, array $attributes = [])
+    public function display(string $name = null, array $attributes = []): string
     {
-        return Div::make()->attributes(array_merge(
-            static::prepareNameAttribute($name),
-            $this->prepareAttributes($attributes)
-        ));
+        $attributesHtml = [];
+        foreach (array_merge(static::prepareNameAttribute($name), $this->prepareAttributes($attributes)) as $attributeName => $attributeValue) {
+            $attributesHtml[] = sprintf('%s="%s"', $attributeName, $attributeValue);
+        }
+
+        return '<div ' . implode(' ', $attributesHtml) . '></div>';
     }
 
     /**
      * Display image Captcha.
-     *
-     * @param  string|null  $name
-     * @param  array        $attributes
-     *
-     * @return \Arcanedev\Html\Elements\Div
      */
-    public function image($name = null, array $attributes = [])
+    public function image(string $name = null, array $attributes = []): string
     {
         return $this->display($name, array_merge(
             $attributes,
@@ -94,13 +85,8 @@ class NoCaptchaV2 extends AbstractNoCaptcha
 
     /**
      * Display audio Captcha.
-     *
-     * @param  string|null  $name
-     * @param  array        $attributes
-     *
-     * @return \Arcanedev\Html\Elements\Div
      */
-    public function audio($name = null, array $attributes = [])
+    public function audio(string $name = null, array $attributes = []): string
     {
         return $this->display($name, array_merge(
             $attributes,
@@ -110,18 +96,15 @@ class NoCaptchaV2 extends AbstractNoCaptcha
 
     /**
      * Display an invisible Captcha (bind the challenge to a button).
-     *
-     * @param  string  $value
-     * @param  array   $attributes
-     *
-     * @return \Arcanedev\Html\Elements\Button
      */
-    public function button($value, array $attributes = [])
+    public function button(string $value, array $attributes = []): string
     {
-        return Button::make()->text($value)->attributes(array_merge(
-            ['data-callback' => 'onSubmit'],
-            $this->prepareAttributes($attributes)
-        ));
+        $attributesHtml = [];
+        foreach (array_merge(['data-callback' => 'onSubmit'], $this->prepareAttributes($attributes)) as $attributeName => $attributeValue) {
+            $attributesHtml[] = sprintf('%s="%s"', $attributeName, $attributeValue);
+        }
+
+        return '<button ' . implode(' ', $attributesHtml) . '>' . $value . '</button>';
     }
 
     /**
